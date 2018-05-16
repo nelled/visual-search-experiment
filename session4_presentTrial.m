@@ -90,9 +90,43 @@ end
 % CONJUNCTION SEARCH
 if searchType == 2
     
-    %Exercise!
+    % define target- and distrcator identities
+    distractor(1).chr = 'T';
+    distractor(1).color = brown;
+    distractor(2).chr = 'X';
+    distractor(2).color = green;
     
+    if targetConjunction == 1 % green T
+        target(1).chr = 'T';
+        target(1).color = green;
+        target(2).chr = 'T';
+        target(2).color = green;
+    else  % brown X
+        target(1).chr = 'X';
+        target(1).color = brown;
+        target(2).chr = 'X';
+        target(2).color = brown;
+    end
+    
+    % draw target
+    if targetPresent
+        
+        if rand>5. %randomly present target identity 1
+            g = text(x(setSize), y(setSize), target(1).chr, 'Color', target(1).color, 'FontSize', FS);
+        else
+            g = text(x(setSize), y(setSize), target(2).chr, 'Color', target(2).color, 'FontSize', FS);
+        end
+    
+    else
+        
+        if rand>5. %randomly present distractor identity 1
+            g = text(x(setSize), y(setSize), distractor(1).chr, 'Color',  distractor(1).color, 'FontSize', FS);
+        else
+            g = text(x(setSize), y(setSize), distractor(2).chr, 'Color',  distractor(2).color, 'FontSize', FS);
+        end
+    end
 end
+    
 
 % draw distractors
 ng1 = text(x(distractorIdentity==1), y(distractorIdentity==1), distractor(1).chr, 'Color',  distractor(1).color, 'FontSize', FS);

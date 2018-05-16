@@ -24,6 +24,19 @@ if searchType == 1
         target(2).chr = 'X';
         target(2).color = blue;
     end
+
+if searchType == 2
+     if targetConjunction == 1 % green T
+        target(1).chr = 'T';
+        target(1).color = green;
+        target(2).chr = 'T';
+        target(2).color = green;
+    else  % brown X
+        target(1).chr = 'X';
+        target(1).color = brown;
+        target(2).chr = 'X';
+        target(2).color = brown;
+    end
     
     
     for i = 1:2

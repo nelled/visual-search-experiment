@@ -21,10 +21,11 @@ target_present = [0, 1];
 % Create combinations
 [ca, cb, cc] = ndgrid(search_types, set_sizes, target_present);
 combs = sortrows(repmat([ca(:), cb(:), cc(:)],10,1), 3);
+combs
 
 % Split on block
-feature = combs(combs(:,3) ==0,:);
-conjunction = combs(combs(:,3) ==1,:);
+feature = combs(combs(:,1) ==1,:);
+conjunction = combs(combs(:,1) ==2,:);
 
 % Add target feature according to subject no. for the conjunction block we
 % set those to 0
@@ -57,10 +58,10 @@ conjunction = horzcat(b1', conjunction);
 design_matrix = vertcat(feature, conjunction);
 
 % Add subject no
-sno_vec(1:size(design_matrix,1)) = subject_no
-design_matrix = horzcat(sno_vec', design_matrix)
+sno_vec(1:size(design_matrix,1)) = subject_no;
+design_matrix = horzcat(sno_vec', design_matrix);
 
 % Add trial counter
-trials_vec = 1:size(design_matrix,1)
-design_matrix = horzcat(design_matrix(:,1:2), trials_vec', design_matrix(:,3:end))
+trials_vec = 1:size(design_matrix,1);
+design_matrix = horzcat(design_matrix(:,1:2), trials_vec', design_matrix(:,3:end));
 end
