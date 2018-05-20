@@ -21,7 +21,6 @@ target_present = [0, 1];
 % Create combinations
 [ca, cb, cc] = ndgrid(search_types, set_sizes, target_present);
 combs = sortrows(repmat([ca(:), cb(:), cc(:)],10,1), 3);
-combs
 
 % Split on block
 feature = combs(combs(:,1) ==1,:);
@@ -64,4 +63,5 @@ design_matrix = horzcat(sno_vec', design_matrix);
 % Add trial counter
 trials_vec = 1:size(design_matrix,1);
 design_matrix = horzcat(design_matrix(:,1:2), trials_vec', design_matrix(:,3:end));
+design_matrix
 end

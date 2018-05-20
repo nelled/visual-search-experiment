@@ -1,7 +1,6 @@
 % visual search experiment, inspired by Treisman & Gelade, 1980
-% TODO: Welcome Screen
-% TODO: Block change screen (find out what it does and how to make it work)
 % TODO: Keypress thing (stackoverflow)
+% TODO: Bug for subject numbers > 10
 
 % ==================================
 % get subject number
@@ -22,9 +21,10 @@ else
     nums = cellfun(@(x) strsplit(x,'_'),filenames,'UniformOutput',false);
     nums = cat(1,nums{:});
     nums = nums(:,1);
+    % TODO: BUG!!! Does only work until 10...
     nums = cell2mat(nums);
-    nums = str2num(nums)
-    subject_no = max(nums)+1
+    nums = str2num(nums);
+    subject_no = max(nums)+1; 
 
 end
 
@@ -34,8 +34,6 @@ end
 % ==================================
 % Do as in example.
 rng(100*subject_no)
-
-
 
 % ==================================
 % Exercise!
@@ -54,18 +52,16 @@ rng(100*subject_no)
 % (6) Target present: 0 == target absent, 1 == target present
 % (7) Target feature (feature search): 1 == shape, 2 == color
 % (8) Target conjunction (conjunction search): 1 == green T, 2 == brown X
-%todo: design matrix checker
-%design matrix
-% first generate first block, then second?
-
 design = generate_design_matrix(subject_no);
-
 
 % ==================================
 % open full screen figure window
 % ==================================
 siz = get(0, 'ScreenSize');
 fig = figure('Position', siz);
+
+
+
 
 
 % ==================================
@@ -75,7 +71,9 @@ fig = figure('Position', siz);
 % experiment
 % ==================================
 
+welcome_screen(subject_no)
 
+%design = [subject_no 1 1 2 5 1 1 1];
 
 % ==============
 % Exercise!
@@ -85,10 +83,7 @@ fig = figure('Position', siz);
 results=zeros(size(design,1),2); %preallocate results matrix
 lastblock=0;
 for trial = 1:size(design,1)
-
-
- 
-
+trial = 1;
 
 % ==============
 % = read trial parameter from design-matrix=
@@ -107,14 +102,17 @@ targetConjunction = design(trial,8); % 1 == green T, 2 == brown X
 % = display information screen=
 % Revise function session4_newBlock to present information on target
 % identities for feature and conjunction search during blocks
-% ==============
+% ============== 
+session4_newBlock(searchType, targetFeature, targetConjunction)
 if block - lastblock > 0
    session4_newBlock(searchType, targetFeature, targetConjunction)
 end
 % ==============
 % = run single trial =
 % ==============  
+%set(fig, 'KeyPressFcn', @Key_Down);
 [rt, correct] = session4_presentTrial(fig, searchType, setSize, targetPresent, targetFeature, targetConjunction);
+%set(fig, 'KeyPressFcn', '');
 
 
 % ==============
@@ -123,7 +121,6 @@ end
 results(trial,:) = [rt correct];
 
 lastblock = block;
-
 
 end
 close(fig);

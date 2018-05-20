@@ -99,31 +99,16 @@ if searchType == 2
     if targetConjunction == 1 % green T
         target(1).chr = 'T';
         target(1).color = green;
-        target(2).chr = 'T';
-        target(2).color = green;
     else  % brown X
         target(1).chr = 'X';
         target(1).color = brown;
-        target(2).chr = 'X';
-        target(2).color = brown;
     end
     
     % draw target
     if targetPresent
-        
-        if rand>5. %randomly present target identity 1
-            g = text(x(setSize), y(setSize), target(1).chr, 'Color', target(1).color, 'FontSize', FS);
-        else
-            g = text(x(setSize), y(setSize), target(2).chr, 'Color', target(2).color, 'FontSize', FS);
-        end
-    
+        g = text(x(setSize), y(setSize), target(1).chr, 'Color', target(1).color, 'FontSize', FS);
     else
-        
-        if rand>5. %randomly present distractor identity 1
-            g = text(x(setSize), y(setSize), distractor(1).chr, 'Color',  distractor(1).color, 'FontSize', FS);
-        else
-            g = text(x(setSize), y(setSize), distractor(2).chr, 'Color',  distractor(2).color, 'FontSize', FS);
-        end
+        g = text(x(setSize), y(setSize), distractor(1).chr, 'Color',  distractor(1).color, 'FontSize', FS);    
     end
 end
     
@@ -138,6 +123,7 @@ tic
 pause;
 
 
+
 %%%%
 % Exercise!
 % Find a way to accept only 'y' or 'n'
@@ -146,8 +132,10 @@ pause;
 % answ = get(fig, 'CurrentCharacter');
 % while answ ~= 'n' & answ ~= 'y'
 %     answ = get(fig, 'CurrentCharacter');
+%     pause(0.1)
 % end
 answ = get(fig, 'CurrentCharacter');
+%answ = getappdata(gcf, 'answer')
 
 rt = toc;
 
@@ -160,6 +148,5 @@ elseif (targetPresent==0 & lower(answ) == 'y') | (targetPresent==1 & lower(answ)
 else
     correct = -99;
 end
-
 
 end
