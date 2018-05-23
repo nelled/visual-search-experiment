@@ -69,7 +69,7 @@ if searchType == 1
     % draw target
     if targetPresent
         
-        if rand>5. %randomly present target identity 1
+        if rand>.5 %randomly present target identity 1
             g = text(x(setSize), y(setSize), target(1).chr, 'Color', target(1).color, 'FontSize', FS);
         else
             g = text(x(setSize), y(setSize), target(2).chr, 'Color', target(2).color, 'FontSize', FS);
@@ -77,7 +77,7 @@ if searchType == 1
     
     else
         
-        if rand>5. %randomly present distractor identity 1
+        if rand>.5 %randomly present distractor identity 1
             g = text(x(setSize), y(setSize), distractor(1).chr, 'Color',  distractor(1).color, 'FontSize', FS);
         else
             g = text(x(setSize), y(setSize), distractor(2).chr, 'Color',  distractor(2).color, 'FontSize', FS);
@@ -119,26 +119,16 @@ ng2 = text(x(distractorIdentity==2), y(distractorIdentity==2), distractor(2).chr
 
 
 % measure response time
+answ = 'x';
 tic
-pause;
 
-
-
-%%%%
-% Exercise!
-% Find a way to accept only 'y' or 'n'
-%%%%
-%should work but doesnt.
-% answ = get(fig, 'CurrentCharacter');
-% while answ ~= 'n' & answ ~= 'y'
-%     answ = get(fig, 'CurrentCharacter');
-%     pause(0.1)
-% end
-answ = get(fig, 'CurrentCharacter');
-%answ = getappdata(gcf, 'answer')
+while answ ~= 'n' & answ ~= 'y'
+    pause;
+    answ = get(fig, 'CurrentCharacter');
+end
+%answ = get(fig, 'CurrentCharacter');
 
 rt = toc;
-
 
 % evaluate the correctness of the answer
 if (targetPresent==1 & lower(answ) == 'y') | (targetPresent==0 & lower(answ) == 'n')
